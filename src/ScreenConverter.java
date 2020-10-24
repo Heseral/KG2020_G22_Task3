@@ -1,75 +1,75 @@
 
 
 public class ScreenConverter {
-    private double xR, yR, wR, hR;
-    private int wS, hS;
+    private double cornerX, cornerY, realW, realH;
+    private int screenW, screenH;
 
-    public ScreenConverter(double xR, double yR, double wR, double hR, int wS, int hS) {
-        this.xR = xR;
-        this.yR = yR;
-        this.wR = wR;
-        this.hR = hR;
-        this.wS = wS;
-        this.hS = hS;
+    public ScreenConverter(double cornerX, double cornerY, double realW, double realH, int screenW, int screenH) {
+        this.cornerX = cornerX;
+        this.cornerY = cornerY;
+        this.realW = realW;
+        this.realH = realH;
+        this.screenW = screenW;
+        this.screenH = screenH;
     }
 
     public ScreenPoint r2s(RealPoint p) {
-        int x = (int)((p.getX() - xR) * wS / wR);
-        int y = (int)((yR - p.getY()) * hS / hR);
+        int x = (int)((p.getX() - cornerX) * screenW / realW);
+        int y = (int)((cornerY - p.getY()) * screenH / realH);
         return new ScreenPoint(x, y);
     }
 
     public RealPoint s2r(ScreenPoint p) {
-        double x = p.getX() * wR / wS + xR;
-        double y = yR - p.getY() *hR / hS;
+        double x = p.getX() * realW / screenW + cornerX;
+        double y = cornerY - p.getY() * realH / screenH;
         return new RealPoint(x, y);
     }
 
-    public double getxR() {
-        return xR;
+    public double getCornerX() {
+        return cornerX;
     }
 
-    public void setxR(double xR) {
-        this.xR = xR;
+    public void setCornerX(double cornerX) {
+        this.cornerX = cornerX;
     }
 
-    public double getyR() {
-        return yR;
+    public double getCornerY() {
+        return cornerY;
     }
 
-    public void setyR(double yR) {
-        this.yR = yR;
+    public void setCornerY(double cornerY) {
+        this.cornerY = cornerY;
     }
 
-    public double getwR() {
-        return wR;
+    public double getRealW() {
+        return realW;
     }
 
-    public void setwR(double wR) {
-        this.wR = wR;
+    public void setRealW(double realW) {
+        this.realW = realW;
     }
 
-    public double gethR() {
-        return hR;
+    public double getRealH() {
+        return realH;
     }
 
-    public void sethR(double hR) {
-        this.hR = hR;
+    public void setRealH(double realH) {
+        this.realH = realH;
     }
 
-    public int getwS() {
-        return wS;
+    public int getScreenW() {
+        return screenW;
     }
 
-    public void setwS(int wS) {
-        this.wS = wS;
+    public void setScreenW(int screenW) {
+        this.screenW = screenW;
     }
 
-    public int gethS() {
-        return hS;
+    public int getScreenH() {
+        return screenH;
     }
 
-    public void sethS(int hS) {
-        this.hS = hS;
+    public void setScreenH(int screenH) {
+        this.screenH = screenH;
     }
 }
