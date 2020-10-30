@@ -57,7 +57,7 @@ public class EllipseDrawer {
             delta += doubleASquared * (3 - y * 2);
         }
 
-        return new Ellipse(new RealPoint(x0, y0), width, height);
+        return new Ellipse(new RealPoint(x0, y0), new RealPoint(width, 0), new RealPoint(0, height));
     }
 
     public void fillEllipse() {

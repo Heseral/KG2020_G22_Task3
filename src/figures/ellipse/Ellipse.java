@@ -4,21 +4,21 @@ import pixels.RealPoint;
 
 public class Ellipse {
     private RealPoint from;
-    private int height;
-    private int width;
+    private RealPoint heightVector;
+    private RealPoint widthVector;
 
-    public Ellipse(RealPoint from, int width, int height) {
-        onInit(from, width, height);
+    public Ellipse(RealPoint from, RealPoint widthVector, RealPoint heightVector) {
+        onInit(from, widthVector, heightVector);
     }
 
-    public void onInit(RealPoint centerFrom, int widthTo, int heightTo) {
+    public void onInit(RealPoint centerFrom, RealPoint widthVector, RealPoint heightVector) {
         setFrom(centerFrom);
-        setHeight(heightTo);
-        setWidth(widthTo);
+        setHeightVector(heightVector);
+        setWidthVector(widthVector);
     }
 
     public void onInit(Ellipse ellipse) {
-        onInit(ellipse.getFrom(), ellipse.getWidth(), ellipse.getHeight());
+        onInit(ellipse.getFrom(), ellipse.getWidthVector(), ellipse.getHeightVector());
     }
 
     public RealPoint getFrom() {
@@ -30,19 +30,19 @@ public class Ellipse {
     }
 
 
-    public int getHeight() {
-        return height;
+    public RealPoint getHeightVector() {
+        return heightVector;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setHeightVector(RealPoint heightVector) {
+        this.heightVector = heightVector;
     }
 
-    public int getWidth() {
-        return width;
+    public RealPoint getWidthVector() {
+        return widthVector;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setWidthVector(RealPoint widthVector) {
+        this.widthVector = widthVector;
     }
 }

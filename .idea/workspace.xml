@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ec2e2af-ae1b-47fb-bc1d-888d945df396" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/figures/Figure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/figures/ellipse/Ellipse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/figures/ellipse/EllipseDrawer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/GlobalVar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Task3/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Task3/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/ellipse/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/ellipse/Ellipse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/ellipse/EllipseDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/ellipse/EllipseDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/DrawPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/DrawPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lines/DDALineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/lines/DDALineDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lines/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/lines/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lines/LineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/lines/LineDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pixels/RealPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pixels/RealPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pixels/ScreenPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pixels/ScreenPoint.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,45 +102,45 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1351" y="283" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1602322874893" />
-    <state x="664" y="202" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1604079802879">
+    <state x="664" y="202" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1604085790369">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="664" y="202" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604079802879" />
-    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604079663078">
+    <state x="664" y="202" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604085790369" />
+    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604085934502">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604079663078" />
-    <state width="1876" height="145" key="GridCell.Tab.0.bottom" timestamp="1604082533968">
+    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604085934502" />
+    <state width="1876" height="275" key="GridCell.Tab.0.bottom" timestamp="1604086755508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604082533968" />
-    <state width="1876" height="145" key="GridCell.Tab.0.center" timestamp="1604082533968">
+    <state width="1876" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604086755508" />
+    <state width="1876" height="275" key="GridCell.Tab.0.center" timestamp="1604086755508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604082533968" />
-    <state width="1876" height="145" key="GridCell.Tab.0.left" timestamp="1604082533968">
+    <state width="1876" height="275" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604086755508" />
+    <state width="1876" height="275" key="GridCell.Tab.0.left" timestamp="1604086755508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604082533968" />
-    <state width="1876" height="145" key="GridCell.Tab.0.right" timestamp="1604082533968">
+    <state width="1876" height="275" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604086755508" />
+    <state width="1876" height="275" key="GridCell.Tab.0.right" timestamp="1604086755508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604082533968" />
-    <state width="1876" height="153" key="GridCell.Tab.1.bottom" timestamp="1604081459484">
+    <state width="1876" height="275" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604086755508" />
+    <state width="1876" height="153" key="GridCell.Tab.1.bottom" timestamp="1604085288272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="153" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604081459484" />
-    <state width="1876" height="153" key="GridCell.Tab.1.center" timestamp="1604081459484">
+    <state width="1876" height="153" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604085288272" />
+    <state width="1876" height="153" key="GridCell.Tab.1.center" timestamp="1604085288272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="153" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604081459484" />
-    <state width="1876" height="153" key="GridCell.Tab.1.left" timestamp="1604081459484">
+    <state width="1876" height="153" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604085288272" />
+    <state width="1876" height="153" key="GridCell.Tab.1.left" timestamp="1604085288272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="153" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604081459484" />
-    <state width="1876" height="153" key="GridCell.Tab.1.right" timestamp="1604081459484">
+    <state width="1876" height="153" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604085288272" />
+    <state width="1876" height="153" key="GridCell.Tab.1.right" timestamp="1604085288272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="153" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604081459484" />
+    <state width="1876" height="153" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604085288272" />
   </component>
 </project>

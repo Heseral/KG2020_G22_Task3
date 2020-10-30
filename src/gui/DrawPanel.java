@@ -70,12 +70,16 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void drawEllipse(EllipseDrawer ellipseDrawer, Ellipse ellipse, Color color) {
+        ScreenPoint screenedFromPoint = screenConverter.realToScreen(ellipse.getFrom());
         ellipseDrawer.drawEllipse(
-                screenConverter.realToScreen(ellipse.getFrom()),
-                ellipse.getWidth(),
-                ellipse.getHeight(),
+                screenedFromPoint,
+                screenConverter.realToScreen(ellipse.getWidthVector()).getX() - screenedFromPoint.getX(),
+                screenConverter.realToScreen(ellipse.getHeightVector()).getY() - screenedFromPoint.getY(),
                 color
         );
+        System.out.println("from: " + ellipse.getFrom() + "; width: " + ellipse.getWidthVector().getX() + "; height: " + ellipse.getHeightVector().getY());
+        System.out.println("from: " + screenConverter.realToScreen(ellipse.getFrom()) + "; width: " + screenConverter.realToScreen(ellipse.getWidthVector()).getX() + "; height: " + screenConverter.realToScreen(ellipse.getHeightVector()).getY());
+        System.out.println();
     }
 
     public void drawLine(LineDrawer lineDrawer, Line line) {
@@ -96,8 +100,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
             case MouseEvent.BUTTON1:
                 newEllipse = new Ellipse(
                         screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY())),
-                        0,
-                        0
+                        screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY())),
+                        screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY()))
                 );
                 break;
         }
@@ -144,8 +148,16 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
             previousPoint = currentPoint;
         }
         if (newEllipse != null) {
-            newEllipse.setWidth((int) ((screenConverter.screenToReal(currentPoint).getX() - newEllipse.getFrom().getX()) / 2));
-            newEllipse.setHeight((int) ((newEllipse.getFrom().getY() - screenConverter.screenToReal(currentPoint).getY()) / 2));
+            newEllipse.setWidthVector(
+                    screenConverter.screenToReal(
+                            new ScreenPoint(mouseEvent.getX(), screenConverter.realToScreen(newEllipse.getFrom()).getY())
+                    )
+            );
+            newEllipse.setHeightVector(
+                    screenConverter.screenToReal(
+                            new ScreenPoint(screenConverter.realToScreen(newEllipse.getFrom()).getX(), mouseEvent.getY())
+                    )
+            );
         }
         repaint();
     }
