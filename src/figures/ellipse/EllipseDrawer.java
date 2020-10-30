@@ -13,12 +13,12 @@ public class EllipseDrawer {
         this.setPixelDrawer(pixelDrawer);
     }
 
-    public Ellipse drawEllipse(ScreenPoint centerFrom, int width, int height, Color color) {
-        return drawEllipse(centerFrom.getX(), centerFrom.getY(), width, height, color);
+    public void drawEllipse(ScreenPoint centerFrom, int width, int height, Color color) {
+        drawEllipse(centerFrom.getX(), centerFrom.getY(), width, height, color);
     }
 
-    public Ellipse drawEllipse(int x0, int y0, int width, int height, Color color) {
-        int y = height;
+    public void drawEllipse(int x0, int y0, int width, int height, Color color) {
+        int y = Math.abs(height);
         int x = 0;
         // НАЧАЛО: переменные для облегчения участи процессора. Просто сохраним их, чтобы не пересчитывать каждый раз
         final int bSquared = height * height;
@@ -56,12 +56,6 @@ public class EllipseDrawer {
             y--;
             delta += doubleASquared * (3 - y * 2);
         }
-
-        return new Ellipse(new RealPoint(x0, y0), new RealPoint(width, 0), new RealPoint(0, height));
-    }
-
-    public void fillEllipse() {
-
     }
 
     public void drawEllipse(int x0, int y0, int radius, Color color) {

@@ -64,7 +64,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         }
         if (newEllipse != null) {
             drawEllipse(ellipseDrawer, newEllipse, Color.BLACK);
-            //System.out.println("repainted at " + newEllipse.getWidth() + " and " + newEllipse.getHeight());
         }
 
     }
@@ -77,9 +76,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 screenConverter.realToScreen(ellipse.getHeightVector()).getY() - screenedFromPoint.getY(),
                 color
         );
-        System.out.println("from: " + ellipse.getFrom() + "; width: " + ellipse.getWidthVector().getX() + "; height: " + ellipse.getHeightVector().getY());
-        System.out.println("from: " + screenConverter.realToScreen(ellipse.getFrom()) + "; width: " + screenConverter.realToScreen(ellipse.getWidthVector()).getX() + "; height: " + screenConverter.realToScreen(ellipse.getHeightVector()).getY());
-        System.out.println();
     }
 
     public void drawLine(LineDrawer lineDrawer, Line line) {
