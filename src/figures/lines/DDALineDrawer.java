@@ -1,4 +1,4 @@
-package lines;
+package figures.lines;
 
 import pixels.PixelDrawer;
 import pixels.ScreenPoint;
@@ -6,10 +6,10 @@ import pixels.ScreenPoint;
 import java.awt.*;
 
 public class DDALineDrawer implements LineDrawer {
-    private PixelDrawer pd;
+    private PixelDrawer pixelDrawer;
 
-    public DDALineDrawer(PixelDrawer pd) {
-        this.pd = pd;
+    public DDALineDrawer(PixelDrawer pixelDrawer) {
+        this.pixelDrawer = pixelDrawer;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DDALineDrawer implements LineDrawer {
             }
             for (int i = y1; i < y2; i++) {
                 double j = (i - y1) * reversedK + x1;
-                pd.colorPixel((int) j, i, Color.RED);
+                pixelDrawer.colorPixel((int) j, i, Color.RED);
             }
         } else {
 
@@ -47,7 +47,7 @@ public class DDALineDrawer implements LineDrawer {
             }
             for (int j = x1; j <= x2; j++) {
                 double i = (j - x1) * k + y1;
-                pd.colorPixel(j, (int) i, Color.BLUE);
+                pixelDrawer.colorPixel(j, (int) i, Color.BLUE);
 
             }
         }

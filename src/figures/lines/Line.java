@@ -1,8 +1,9 @@
-package lines;
+package figures.lines;
 
+import figures.Figure;
 import pixels.RealPoint;
 
-public class Line {
+public class Line extends Figure {
     private RealPoint firstPoint, secondPoint;
 
     public Line(RealPoint firstPoint, RealPoint secondPoint) {

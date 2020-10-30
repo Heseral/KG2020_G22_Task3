@@ -1,9 +1,12 @@
 package gui;
 
-import lines.DDALineDrawer;
-import lines.Line;
-import lines.LineDrawer;
+import figures.ellipse.EllipseDrawer;
+import figures.ellipse.Ellipse;
+import figures.lines.DDALineDrawer;
+import figures.lines.Line;
+import figures.lines.LineDrawer;
 import pixels.*;
+import util.GlobalVar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,16 +22,20 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         this.addMouseWheelListener(this);
     }
 
-    private ScreenConverter screenConverter = new ScreenConverter(-2, 2, 4, 4, 800, 600);
+    private ScreenConverter screenConverter = new ScreenConverter(
+            -2,
+            2,
+            4,
+            4,
+            GlobalVar.SCREEN_WIDTH,
+            GlobalVar.SCREEN_HEIGHT
+    );
 
     private Line xAxis = new Line(-1, 0, 1, 0);
     private Line yAxis = new Line(0, -1, 0, 1);
-
     private ScreenPoint previousPoint = null;
-
-    private ArrayList<Line> allLines = new ArrayList<>();
-
-    private Line newLine = null;
+    private ArrayList<Ellipse> allEllipses = new ArrayList<>();
+    private Ellipse newEllipse;
 
     @Override
     public void paint(Graphics graphics) {
@@ -41,7 +48,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         graphics2D.dispose();
         PixelDrawer pixelDrawer = new BufferedImagePixelDrawer(bufferedImage);
         LineDrawer lineDrawer = new DDALineDrawer(pixelDrawer);
-        drawAll(lineDrawer);
+        drawAll(lineDrawer, new EllipseDrawer(pixelDrawer));
         /**/
         lineDrawer.drawLine(screenConverter.realToScreen(xAxis.getFirstPoint()), screenConverter.realToScreen(xAxis.getSecondPoint()));
         lineDrawer.drawLine(screenConverter.realToScreen(yAxis.getFirstPoint()), screenConverter.realToScreen(yAxis.getSecondPoint()));
@@ -49,16 +56,26 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         graphics.drawImage(bufferedImage, 0, 0, null);
     }
 
-    public void drawAll(LineDrawer lineDrawer) {
+    public void drawAll(LineDrawer lineDrawer, EllipseDrawer ellipseDrawer) {
         drawLine(lineDrawer, xAxis);
         drawLine(lineDrawer, yAxis);
-        for (Line line : allLines) {
-            drawLine(lineDrawer, line);
+        for (Ellipse ellipse : allEllipses) {
+            drawEllipse(ellipseDrawer, ellipse, Color.BLACK);
         }
-        if (newLine != null) {
-            drawLine(lineDrawer, newLine);
+        if (newEllipse != null) {
+            drawEllipse(ellipseDrawer, newEllipse, Color.BLACK);
+            //System.out.println("repainted at " + newEllipse.getWidth() + " and " + newEllipse.getHeight());
         }
 
+    }
+
+    public void drawEllipse(EllipseDrawer ellipseDrawer, Ellipse ellipse, Color color) {
+        ellipseDrawer.drawEllipse(
+                screenConverter.realToScreen(ellipse.getFrom()),
+                ellipse.getWidth(),
+                ellipse.getHeight(),
+                color
+        );
     }
 
     public void drawLine(LineDrawer lineDrawer, Line line) {
@@ -77,9 +94,10 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 previousPoint = new ScreenPoint(mouseEvent.getX(), mouseEvent.getY());
                 break;
             case MouseEvent.BUTTON1:
-                newLine = new Line(
+                newEllipse = new Ellipse(
                         screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY())),
-                        screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY()))
+                        0,
+                        0
                 );
                 break;
         }
@@ -93,8 +111,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 previousPoint = null;
                 break;
             case MouseEvent.BUTTON1:
-                allLines.add(newLine);
-                newLine = null;
+                allEllipses.add(newEllipse);
+                newEllipse = null;
                 break;
         }
         repaint();
@@ -125,8 +143,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
             screenConverter.setCornerY(screenConverter.getCornerY() - vectorY);
             previousPoint = currentPoint;
         }
-        if (newLine != null) {
-            newLine.setSecondPoint(screenConverter.screenToReal(currentPoint));
+        if (newEllipse != null) {
+            newEllipse.setWidth((int) ((screenConverter.screenToReal(currentPoint).getX() - newEllipse.getFrom().getX()) / 2));
+            newEllipse.setHeight((int) ((newEllipse.getFrom().getY() - screenConverter.screenToReal(currentPoint).getY()) / 2));
         }
         repaint();
     }

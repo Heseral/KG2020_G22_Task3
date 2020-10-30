@@ -1,4 +1,4 @@
-package lines;
+package figures.lines;
 
 import pixels.ScreenPoint;
 
