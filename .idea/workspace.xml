@@ -2,15 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ec2e2af-ae1b-47fb-bc1d-888d945df396" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/DrawPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lines/Line.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lines/LineDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pixels/BufferedImagePixelDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pixels/ScreenConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DDALineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DDALineDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DrawPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DrawPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LineDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BufferedImagePixelDrawer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DDALineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lines/DDALineDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DrawPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Line.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LineDrawer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScreenConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScreenConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pixels/PixelDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RealPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pixels/RealPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScreenConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScreenPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pixels/ScreenPoint.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,18 +45,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -62,6 +62,18 @@
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -81,32 +93,42 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="177" key="#Project_Structure" timestamp="1604074029571">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="177" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1604074029571" />
     <state x="1351" y="283" key="#com.intellij.ide.util.MemberChooser" timestamp="1602322874893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1351" y="283" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1602322874893" />
-    <state width="752" height="143" key="GridCell.Tab.0.bottom" timestamp="1602326136531">
+    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604073974720">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="752" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602326136531" />
-    <state width="752" height="143" key="GridCell.Tab.0.center" timestamp="1602326136531">
+    <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604073974720" />
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1604074079776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="752" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602326136531" />
-    <state width="752" height="143" key="GridCell.Tab.0.left" timestamp="1602326136531">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604074079776" />
+    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1604074079776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="752" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602326136531" />
-    <state width="752" height="143" key="GridCell.Tab.0.right" timestamp="1602326136531">
+    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604074079776" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1604074079776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="752" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602326136531" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604074079776" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1604074079776">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604074079776" />
   </component>
 </project>

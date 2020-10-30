@@ -1,3 +1,5 @@
+package pixels;
+
 public class RealPoint {
     private double x, y;
 

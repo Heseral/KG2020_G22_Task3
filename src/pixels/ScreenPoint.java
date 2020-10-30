@@ -1,3 +1,5 @@
+package pixels;
+
 public class ScreenPoint {
     private int x, y;
 

@@ -1,4 +1,7 @@
+package lines;
 
+import pixels.PixelDrawer;
+import pixels.ScreenPoint;
 
 import java.awt.*;
 
@@ -10,14 +13,14 @@ public class DDALineDrawer implements LineDrawer {
     }
 
     @Override
-    public void drawLine(ScreenPoint p1, ScreenPoint p2) {
-        int x1 = p1.getX(), y1 = p1.getY();
-        int x2 = p2.getX(), y2 = p2.getY();
+    public void drawLine(ScreenPoint firstPoint, ScreenPoint secondPoint) {
+        int x1 = firstPoint.getX(), y1 = firstPoint.getY();
+        int x2 = secondPoint.getX(), y2 = secondPoint.getY();
         double dx = x2 - x1;
         double dy = y2 - y1;
 
         if (Math.abs(dy) > Math.abs(dx)) {
-            double reversek = dx / dy;
+            double reversedK = dx / dy;
 
             if (y1 > y2) {
                 int tmp = y2;
@@ -28,7 +31,7 @@ public class DDALineDrawer implements LineDrawer {
                 x1 = tmp;
             }
             for (int i = y1; i < y2; i++) {
-                double j = (i - y1) * reversek + x1;
+                double j = (i - y1) * reversedK + x1;
                 pd.colorPixel((int) j, i, Color.RED);
             }
         } else {
