@@ -1,7 +1,6 @@
 package figures.ellipse;
 
 import pixels.PixelDrawer;
-import pixels.RealPoint;
 import pixels.ScreenPoint;
 
 import java.awt.*;

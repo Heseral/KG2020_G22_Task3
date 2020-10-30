@@ -16,11 +16,14 @@ import java.util.ArrayList;
 
 public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 
-    public DrawPanel() {
+    public DrawPanel(MainWindow mainWindow) {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.addMouseWheelListener(this);
+        this.mainWindow = mainWindow;
     }
+
+    private MainWindow mainWindow;
 
     private ScreenConverter screenConverter = new ScreenConverter(
             -2,
@@ -36,6 +39,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     private ScreenPoint previousPoint = null;
     private ArrayList<Ellipse> allEllipses = new ArrayList<>();
     private Ellipse newEllipse;
+    private Ellipse selectedEllipse;
 
     @Override
     public void paint(Graphics graphics) {
@@ -60,10 +64,14 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         drawLine(lineDrawer, xAxis);
         drawLine(lineDrawer, yAxis);
         for (Ellipse ellipse : allEllipses) {
-            drawEllipse(ellipseDrawer, ellipse, Color.BLACK);
+            try {
+                drawEllipse(ellipseDrawer, ellipse, ellipse.getColor());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (newEllipse != null) {
-            drawEllipse(ellipseDrawer, newEllipse, Color.BLACK);
+            drawEllipse(ellipseDrawer, newEllipse, newEllipse.getColor());
         }
 
     }
@@ -82,6 +90,77 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         lineDrawer.drawLine(screenConverter.realToScreen(line.getFirstPoint()), screenConverter.realToScreen(line.getSecondPoint()));
     }
 
+    public boolean isPointBelongsToEllipse(int mouseX, int mouseY, int x0, int y0, int width, int height) {
+        int y = Math.abs(height);
+        int x = 0;
+        // НАЧАЛО: переменные для облегчения участи процессора. Просто сохраним их, чтобы не пересчитывать каждый раз
+        final int bSquared = height * height;
+        final int aSquared = width * width;
+        final int doubleASquared = aSquared * 2;
+        final int quadrupleASquared = aSquared * 4;
+        final int quadrupleBSquared = bSquared * 4;
+        final int doubleBSquared = bSquared * 2;
+        // КОНЕЦ: переменные для облегчения участи процессора
+        int delta = doubleASquared * ((y - 1) * y) + aSquared + doubleBSquared * (1 - aSquared);
+        // горизонтально-ориентированные кривые
+        while (aSquared * y > bSquared * x) {
+            if (x + x0 == mouseX && y + y0 == mouseY
+                    || x + x0 == mouseX && y0 - y == mouseY
+                    || x0 - x == mouseX && y + y0 == mouseY
+                    || x0 - x == mouseX && y0 - y == mouseY) {
+                return true;
+            }
+            if (delta >= 0) {
+                y--;
+                delta -= quadrupleASquared * (y);
+            }
+            delta += doubleBSquared * (3 + x * 2);
+            x++;
+        }
+        delta = doubleBSquared * (x + 1) * x + doubleASquared * (y * (y - 2) + 1) + (1 - doubleASquared) * bSquared;
+        // вертикально-ориентированные кривые
+        while (y + 1 > 0) {
+            if (x + x0 == mouseX && y + y0 == mouseY
+                    || x + x0 == mouseX && y0 - y == mouseY
+                    || x0 - x == mouseX && y + y0 == mouseY
+                    || x0 - x == mouseX && y0 - y == mouseY) {
+                return true;
+            }
+            if (delta <= 0) {
+                x++;
+                delta += quadrupleBSquared * x;
+            }
+            y--;
+            delta += doubleASquared * (3 - y * 2);
+        }
+        return false;
+    }
+
+    public boolean tryToSelectEllipse(int mouseX, int mouseY, Ellipse ellipse) {
+        ScreenPoint screenedFromPoint = screenConverter.realToScreen(ellipse.getFrom());
+        int width = screenConverter.realToScreen(ellipse.getWidthVector()).getX() - screenedFromPoint.getX();
+        int height = screenConverter.realToScreen(ellipse.getHeightVector()).getY() - screenedFromPoint.getY();
+        int x0 = screenedFromPoint.getX();
+        int y0 = screenedFromPoint.getY();
+        // сложность 6n лучше, чем проверять для каждого эллипса для каждого пикселя приближенность, где сложность 6nm
+        for (int i = -3; i < 4; i++) {
+            for (int j = -3; j < 4; j++) {
+                if (isPointBelongsToEllipse(mouseX, mouseY, x0 + j, y0 + i, width, height)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void onEllipseSelected() {
+        mainWindow.onEllipseSelected(selectedEllipse);
+    }
+
+    public void onEllipseDeselected() {
+        mainWindow.onEllipseDeselected();
+    }
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
@@ -94,6 +173,32 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 previousPoint = new ScreenPoint(mouseEvent.getX(), mouseEvent.getY());
                 break;
             case MouseEvent.BUTTON1:
+                // а как еще? пометки только для циклов работают, а это не цикл
+                boolean shouldBrokeCase = false;
+                for (Ellipse ellipse : allEllipses) {
+                    if (tryToSelectEllipse(mouseEvent.getX(), mouseEvent.getY(), ellipse)) {
+                        if (selectedEllipse != null && ellipse != selectedEllipse) {
+                            selectedEllipse.setSelected(false);
+                            selectedEllipse.setColor(Color.BLACK);
+                            onEllipseDeselected();
+                        }
+                        ellipse.setColor(Color.RED);
+                        ellipse.setSelected(true);
+                        selectedEllipse = ellipse;
+                        onEllipseSelected();
+                        shouldBrokeCase = true;
+                        break;
+                    }
+                }
+                if (shouldBrokeCase) {
+                    break;
+                }
+                if (selectedEllipse != null) {
+                    selectedEllipse.setSelected(false);
+                    selectedEllipse.setColor(Color.BLACK);
+                    selectedEllipse = null;
+                    onEllipseDeselected();
+                }
                 newEllipse = new Ellipse(
                         screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY())),
                         screenConverter.screenToReal(new ScreenPoint(mouseEvent.getX(), mouseEvent.getY())),
@@ -111,6 +216,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 previousPoint = null;
                 break;
             case MouseEvent.BUTTON1:
+                if (newEllipse == null) {
+                    break;
+                }
                 allEllipses.add(newEllipse);
                 newEllipse = null;
                 break;
