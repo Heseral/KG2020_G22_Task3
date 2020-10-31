@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ec2e2af-ae1b-47fb-bc1d-888d945df396" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/util/Misc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Task3/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/ellipse/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/ellipse/Ellipse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/figures/ellipse/EllipseDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/ellipse/EllipseDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/DrawPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/DrawPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -111,22 +110,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="669" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604085934502" />
-    <state width="1876" height="222" key="GridCell.Tab.0.bottom" timestamp="1604126541342">
+    <state width="1876" height="222" key="GridCell.Tab.0.bottom" timestamp="1604153286751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604126541342" />
-    <state width="1876" height="222" key="GridCell.Tab.0.center" timestamp="1604126541342">
+    <state width="1876" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604153286751" />
+    <state width="1876" height="222" key="GridCell.Tab.0.center" timestamp="1604153286751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="222" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604126541342" />
-    <state width="1876" height="222" key="GridCell.Tab.0.left" timestamp="1604126541342">
+    <state width="1876" height="222" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604153286751" />
+    <state width="1876" height="222" key="GridCell.Tab.0.left" timestamp="1604153286751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="222" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604126541342" />
-    <state width="1876" height="222" key="GridCell.Tab.0.right" timestamp="1604126541342">
+    <state width="1876" height="222" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604153286751" />
+    <state width="1876" height="222" key="GridCell.Tab.0.right" timestamp="1604153286751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="222" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604126541342" />
+    <state width="1876" height="222" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604153286751" />
     <state width="1876" height="327" key="GridCell.Tab.1.bottom" timestamp="1604094892830">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

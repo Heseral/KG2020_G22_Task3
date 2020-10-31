@@ -3,6 +3,7 @@ package figures.ellipse;
 import pixels.PixelDrawer;
 import pixels.ScreenConverter;
 import pixels.ScreenPoint;
+import util.Misc;
 
 import java.awt.*;
 
@@ -18,20 +19,24 @@ public class EllipseDrawer {
     public void drawEllipse(Ellipse ellipse) {
         drawEllipse(
                 screenConverter.realToScreen(ellipse.getFrom()),
-                screenConverter.realToScreen(ellipse.getWidthVector()).getX(),
-                screenConverter.realToScreen(ellipse.getHeightVector()).getY(),
+                screenConverter.realToScreen(ellipse.getWidthVector()),
+                screenConverter.realToScreen(ellipse.getHeightVector()),
                 ellipse.getTransformationMatrix(),
                 ellipse.getColor()
         );
     }
 
-    public void drawEllipse(ScreenPoint centerFrom, int width, int height, double[] matrix, Color color) {
-        drawEllipse(centerFrom.getX(), centerFrom.getY(), width, height, matrix, color);
-    }
-
-    public void drawEllipse(int x0, int y0, int width, int height, double[] matrix, Color color) {
-        width *= matrix[0];
-        height *= matrix[4];
+    public void drawEllipse(ScreenPoint from, ScreenPoint widthVector, ScreenPoint heightVector, double[][] matrix, Color color) {
+        double[][] tempWidthVector = Misc.multiplyMatrices(new double[][]{{widthVector.getX(), widthVector.getY(), 1}}, matrix);
+        double[][] tempHeightVector = Misc.multiplyMatrices(new double[][]{{heightVector.getX(), heightVector.getY(), 1}}, matrix);
+        int x0 = from.getX();
+        int y0 = from.getY();
+        int width = widthVector.getX();
+        int height = heightVector.getY();
+        width = (int) (width *  matrix[0][0] + height * matrix[1][0]);
+        height = (int) (height * matrix[1][1] + width * matrix[0][1]);
+        x0 += matrix[2][0] + matrix[0][0] + matrix[1][0];
+        y0 -= matrix[2][1] + matrix[1][1] + matrix[0][1];
         int y = Math.abs(height);
         int x = 0;
         // НАЧАЛО: переменные для облегчения участи процессора. Просто сохраним их, чтобы не пересчитывать каждый раз

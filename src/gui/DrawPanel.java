@@ -78,10 +78,12 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
     public void drawEllipse(EllipseDrawer ellipseDrawer, Ellipse ellipse, Color color) {
         ScreenPoint screenedFromPoint = screenConverter.realToScreen(ellipse.getFrom());
+        ScreenPoint screenedWidthVector = screenConverter.realToScreen(ellipse.getWidthVector());
+        ScreenPoint screenedHeightVector = screenConverter.realToScreen(ellipse.getHeightVector());
         ellipseDrawer.drawEllipse(
                 screenedFromPoint,
-                screenConverter.realToScreen(ellipse.getWidthVector()).getX() - screenedFromPoint.getX(),
-                screenConverter.realToScreen(ellipse.getHeightVector()).getY() - screenedFromPoint.getY(),
+                new ScreenPoint(screenedWidthVector.getX() - screenedFromPoint.getX(), screenedWidthVector.getY() - screenedFromPoint.getY()),
+                new ScreenPoint(screenedHeightVector.getX() - screenedFromPoint.getX(), screenedHeightVector.getY() - screenedFromPoint.getY()),
                 ellipse.getTransformationMatrix(),
                 color
         );
