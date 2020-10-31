@@ -4,7 +4,7 @@ import util.GlobalVar;
 import javax.swing.*;
 
 public class Main {
-
+    // todo вынести матрицу аффинных преобразований в класс. Преобразовывать точки в этом классе через метод
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

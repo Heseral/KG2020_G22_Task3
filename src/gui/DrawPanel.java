@@ -52,7 +52,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         graphics2D.dispose();
         PixelDrawer pixelDrawer = new BufferedImagePixelDrawer(bufferedImage);
         LineDrawer lineDrawer = new DDALineDrawer(pixelDrawer);
-        drawAll(lineDrawer, new EllipseDrawer(pixelDrawer));
+        drawAll(lineDrawer, new EllipseDrawer(pixelDrawer, screenConverter));
         /**/
         lineDrawer.drawLine(screenConverter.realToScreen(xAxis.getFirstPoint()), screenConverter.realToScreen(xAxis.getSecondPoint()));
         lineDrawer.drawLine(screenConverter.realToScreen(yAxis.getFirstPoint()), screenConverter.realToScreen(yAxis.getSecondPoint()));
@@ -82,6 +82,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
                 screenedFromPoint,
                 screenConverter.realToScreen(ellipse.getWidthVector()).getX() - screenedFromPoint.getX(),
                 screenConverter.realToScreen(ellipse.getHeightVector()).getY() - screenedFromPoint.getY(),
+                ellipse.getTransformationMatrix(),
                 color
         );
     }

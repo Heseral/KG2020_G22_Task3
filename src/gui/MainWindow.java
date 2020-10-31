@@ -57,8 +57,11 @@ public class MainWindow extends JFrame {
                 return;
             }
             for (int i = 0; i < 9; i++) {
+                // todo вообще в эллипсе не сохранять матрицу преобразования после преобразования. Просто изменять ее
+                // todo параметры, например для a и d это ширина и высота. Но как с остальными поступать?
                 selectedEllipse.getTransformationMatrix()[i] = Double.parseDouble(transformationMatrix[i].getText());
             }
+            drawPanel.repaint();
         });
 
         for (int i = 0; i < 9; i++) {
@@ -67,7 +70,6 @@ public class MainWindow extends JFrame {
         }
 
         editPanel.add(apply);
-
         mainPanel.add(editPanel);
         mainPanel.add(drawPanel);
         add(mainPanel);
