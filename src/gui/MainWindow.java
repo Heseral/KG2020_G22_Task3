@@ -56,11 +56,14 @@ public class MainWindow extends JFrame {
             if (selectedEllipse == null) {
                 return;
             }
-            for (int i = 0; i < 9; i++) {
-                // todo вообще в эллипсе не сохранять матрицу преобразования после преобразования. Просто изменять ее
-                // todo параметры, например для a и d это ширина и высота. Но как с остальными поступать?
-                selectedEllipse.getTransformationMatrix()[i] = Double.parseDouble(transformationMatrix[i].getText());
+            // todo вообще в эллипсе не сохранять матрицу преобразования после преобразования. Просто изменять ее
+            // todo параметры, например для a и d это ширина и высота. Но как с остальными поступать?
+            for (int row = 0, i = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++, i++) {
+                    selectedEllipse.getTransformationMatrix()[row][col] = Double.parseDouble(transformationMatrix[i].getText());
+                }
             }
+            drawPanel.setShouldEllipseBeRecreated(true);
             drawPanel.repaint();
         });
 
@@ -84,9 +87,11 @@ public class MainWindow extends JFrame {
 
     public void onEllipseSelected(Ellipse selectedEllipse) {
         this.selectedEllipse = selectedEllipse;
-        for (int i = 0; i < 9; i++) {
-            transformationMatrix[i].setEditable(true);
-            transformationMatrix[i].setText(String.valueOf(selectedEllipse.getTransformationMatrix()[i]));
+        for (int row = 0, i = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++, i++) {
+                transformationMatrix[i].setEditable(true);
+                transformationMatrix[i].setText(String.valueOf(selectedEllipse.getTransformationMatrix()[row][col]));
+            }
         }
     }
 }

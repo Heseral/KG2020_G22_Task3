@@ -1,5 +1,7 @@
 package util;
 
+import pixels.ScreenPoint;
+
 public abstract class Misc {
     public static double[][] multiplyMatrices(double[][] firstMatrix, double[][] secondMatrix) {
         if (firstMatrix.length != secondMatrix[0].length) {
@@ -14,5 +16,10 @@ public abstract class Misc {
             }
         }
         return result;
+    }
+
+    public static void transformByMultiplication(ScreenPoint screenPoint, double[][] matrix) {
+        screenPoint.setX((int) Math.round(screenPoint.getX() * matrix[0][0] + screenPoint.getY() * matrix[1][0] + matrix[2][0]));
+        screenPoint.setY((int) Math.round(screenPoint.getX() * matrix[0][1] + screenPoint.getY() * matrix[1][1] + matrix[2][1]));
     }
 }

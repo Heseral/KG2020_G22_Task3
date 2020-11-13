@@ -1,23 +1,36 @@
 package pixels;
 
 public class ScreenPoint {
-    private int x, y;
+    private int x;
+    private int y;
 
     public ScreenPoint(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
+    }
+
+    public ScreenPoint(double x, double y) {
+        this((int) Math.round(x), (int) Math.round(y));
+    }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + "; " + getY() + ")";
     }
 
     public int getX() {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getY() {
         return y;
     }
 
-    @Override
-    public String toString() {
-        return "(" + x + "; " + y + ")";
+    public void setY(int y) {
+        this.y = y;
     }
 }

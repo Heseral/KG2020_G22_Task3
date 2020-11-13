@@ -18,8 +18,8 @@ public class ScreenConverter {
     }
 
     public ScreenPoint realToScreen(RealPoint realPoint) {
-        int x = (int) ((realPoint.getX() - cornerX) * screenWidth / realWidth);
-        int y = (int) ((cornerY - realPoint.getY()) * screenHeight / realHeight);
+        int x = (int) Math.round((realPoint.getX() - cornerX) * screenWidth / realWidth);
+        int y = (int) Math.round((cornerY - realPoint.getY()) * screenHeight / realHeight);
         return new ScreenPoint(x, y);
     }
 

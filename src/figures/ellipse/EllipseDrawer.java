@@ -1,11 +1,14 @@
 package figures.ellipse;
 
 import pixels.PixelDrawer;
+import pixels.RealPoint;
 import pixels.ScreenConverter;
 import pixels.ScreenPoint;
-import util.Misc;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class EllipseDrawer {
     private PixelDrawer pixelDrawer;
@@ -16,27 +19,33 @@ public class EllipseDrawer {
         this.screenConverter = screenConverter;
     }
 
-    public void drawEllipse(Ellipse ellipse) {
-        drawEllipse(
-                screenConverter.realToScreen(ellipse.getFrom()),
-                screenConverter.realToScreen(ellipse.getWidthVector()),
-                screenConverter.realToScreen(ellipse.getHeightVector()),
-                ellipse.getTransformationMatrix(),
-                ellipse.getColor()
-        );
+    public void drawEllipse(Ellipse ellipse, Color color, boolean shouldBeCreated) {
+        if (shouldBeCreated) {
+            createEllipse(ellipse, ellipse.getTransformationMatrix());
+        }
+        ScreenPoint screenPointToDraw;
+        for (RealPoint pixel : ellipse.getPixels()) {
+            screenPointToDraw = screenConverter.realToScreen(pixel);
+            pixelDrawer.colorPixel(screenPointToDraw.getX(), screenPointToDraw.getY(), color);
+        }
     }
 
-    public void drawEllipse(ScreenPoint from, ScreenPoint widthVector, ScreenPoint heightVector, double[][] matrix, Color color) {
-        double[][] tempWidthVector = Misc.multiplyMatrices(new double[][]{{widthVector.getX(), widthVector.getY(), 1}}, matrix);
-        double[][] tempHeightVector = Misc.multiplyMatrices(new double[][]{{heightVector.getX(), heightVector.getY(), 1}}, matrix);
-        int x0 = from.getX();
-        int y0 = from.getY();
-        int width = widthVector.getX();
-        int height = heightVector.getY();
-        width = (int) (width *  matrix[0][0] + height * matrix[1][0]);
-        height = (int) (height * matrix[1][1] + width * matrix[0][1]);
-        x0 += matrix[2][0] + matrix[0][0] + matrix[1][0];
-        y0 -= matrix[2][1] + matrix[1][1] + matrix[0][1];
+    public void createEllipse(Ellipse ellipse, double[][] matrix) {
+        ScreenPoint from = screenConverter.realToScreen(ellipse.getFrom());
+        ScreenPoint screenedWidthVector = screenConverter.realToScreen(ellipse.getWidthVector());
+        ScreenPoint screenedHeightVector = screenConverter.realToScreen(ellipse.getHeightVector());
+        ScreenPoint widthVector = new ScreenPoint(screenedWidthVector.getX() - from.getX(), screenedWidthVector.getY() - from.getY());
+        ScreenPoint heightVector = new ScreenPoint(screenedHeightVector.getX() - from.getX(), screenedHeightVector.getY() - from.getY());
+        List<RealPoint> pixels = new ArrayList<>();
+        ellipse.setPixels(pixels);
+        int coefficientX = (int) Math.ceil(Math.abs(matrix[0][0]) + Math.abs(matrix[1][0]));
+        int coefficientY = (int) Math.ceil(Math.abs(matrix[0][1]) + Math.abs(matrix[1][1]));
+        // fixme: ъуъ, если у b и c разные знаки, то при перемещении экрана на ПКМ эллипс перемещается в 2 раза быстрее
+        // fixme: ьеь, если у b и c одинаковые знаки, то эллипс вырождается в прямую или точку
+        int x0 = (int) (from.getX() / (matrix[0][0] == 0 ? 1 : matrix[0][0]) * coefficientX - from.getY() * matrix[1][0] * coefficientY);
+        int y0 = (int) (from.getY() / (matrix[1][1] == 0 ? 1 : matrix[1][1]) * coefficientY - from.getX() * matrix[0][1] * coefficientX);
+        int width = widthVector.getX() * coefficientX;
+        int height = heightVector.getY() * coefficientY;
         int y = Math.abs(height);
         int x = 0;
         // НАЧАЛО: переменные для облегчения участи процессора. Просто сохраним их, чтобы не пересчитывать каждый раз
@@ -48,12 +57,43 @@ public class EllipseDrawer {
         final int doubleBSquared = bSquared * 2;
         // КОНЕЦ: переменные для облегчения участи процессора
         int delta = doubleASquared * ((y - 1) * y) + aSquared + doubleBSquared * (1 - aSquared);
+        int x1;
+        int x2;
+        int y1;
+        int y2;
+
         // горизонтально-ориентированные кривые
         while (aSquared * y > bSquared * x) {
-            pixelDrawer.colorPixel(x + x0, y + y0, color);
-            pixelDrawer.colorPixel(x + x0, y0 - y, color);
-            pixelDrawer.colorPixel(x0 - x, y + y0, color);
-            pixelDrawer.colorPixel(x0 - x, y0 - y, color);
+            x1 = x + x0;
+            x2 = x0 - x;
+            y1 = y + y0;
+            y2 = y0 - y;
+
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x1 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
+                            (y1 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x1 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
+                            (y2 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x2 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
+                            (y1 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x2 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
+                            (y2 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
+                    )
+            ));
+
             if (delta >= 0) {
                 y--;
                 delta -= quadrupleASquared * (y);
@@ -64,10 +104,36 @@ public class EllipseDrawer {
         delta = doubleBSquared * (x + 1) * x + doubleASquared * (y * (y - 2) + 1) + (1 - doubleASquared) * bSquared;
         // вертикально-ориентированные кривые
         while (y + 1 > 0) {
-            pixelDrawer.colorPixel(x + x0, y + y0, color);
-            pixelDrawer.colorPixel(x + x0, y0 - y, color);
-            pixelDrawer.colorPixel(x0 - x, y + y0, color);
-            pixelDrawer.colorPixel(x0 - x, y0 - y, color);
+            x1 = x + x0;
+            x2 = x0 - x;
+            y1 = y + y0;
+            y2 = y0 - y;
+
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x1 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
+                            (y1 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x1 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
+                            (y2 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x2 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
+                            (y1 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
+                    )
+            ));
+            pixels.add(screenConverter.screenToReal(
+                    new ScreenPoint(
+                            (x2 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
+                            (y2 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
+                    )
+            ));
+
             if (delta <= 0) {
                 x++;
                 delta += quadrupleBSquared * x;

@@ -13,7 +13,7 @@ public class DDALineDrawer implements LineDrawer {
     }
 
     @Override
-    public void drawLine(ScreenPoint firstPoint, ScreenPoint secondPoint) {
+    public void drawLine(ScreenPoint firstPoint, ScreenPoint secondPoint, Color color) {
         int x1 = firstPoint.getX(), y1 = firstPoint.getY();
         int x2 = secondPoint.getX(), y2 = secondPoint.getY();
         double dx = x2 - x1;
@@ -32,7 +32,7 @@ public class DDALineDrawer implements LineDrawer {
             }
             for (int i = y1; i < y2; i++) {
                 double j = (i - y1) * reversedK + x1;
-                pixelDrawer.colorPixel((int) j, i, Color.RED);
+                pixelDrawer.colorPixel((int) j, i, color);
             }
         } else {
 
@@ -47,11 +47,16 @@ public class DDALineDrawer implements LineDrawer {
             }
             for (int j = x1; j <= x2; j++) {
                 double i = (j - x1) * k + y1;
-                pixelDrawer.colorPixel(j, (int) i, Color.BLUE);
+                pixelDrawer.colorPixel(j, (int) i, color);
 
             }
         }
 
+    }
+
+    @Override
+    public void drawLine(ScreenPoint firstPoint, ScreenPoint secondPoint) {
+        drawLine(firstPoint, secondPoint, Color.BLACK);
     }
 }
 

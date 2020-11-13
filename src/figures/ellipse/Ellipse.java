@@ -3,8 +3,12 @@ package figures.ellipse;
 import pixels.RealPoint;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Ellipse {
+    private List<RealPoint> pixels = new ArrayList<>();
     private RealPoint from;
     private RealPoint heightVector;
     private RealPoint widthVector;
@@ -69,5 +73,13 @@ public class Ellipse {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public List<RealPoint> getPixels() {
+        return pixels;
+    }
+
+    public void setPixels(List<RealPoint> pixels) {
+        this.pixels = pixels;
     }
 }
