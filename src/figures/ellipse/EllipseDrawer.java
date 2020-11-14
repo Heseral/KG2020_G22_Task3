@@ -4,6 +4,8 @@ import pixels.PixelDrawer;
 import pixels.RealPoint;
 import pixels.ScreenConverter;
 import pixels.ScreenPoint;
+import pixels.affine.BasicAffine;
+import pixels.affine.IAffine;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class EllipseDrawer {
 
     public void drawEllipse(Ellipse ellipse, Color color, boolean shouldBeCreated) {
         if (shouldBeCreated) {
-            createEllipse(ellipse, ellipse.getTransformationMatrix());
+            createEllipse(ellipse);
         }
         ScreenPoint screenPointToDraw;
         for (RealPoint pixel : ellipse.getPixels()) {
@@ -30,20 +32,27 @@ public class EllipseDrawer {
         }
     }
 
-    public void createEllipse(Ellipse ellipse, double[][] matrix) {
+    public void createEllipse(Ellipse ellipse) {
+        BasicAffine affine = ellipse.getAffine();
         ScreenPoint from = screenConverter.realToScreen(ellipse.getFrom());
         ScreenPoint screenedWidthVector = screenConverter.realToScreen(ellipse.getWidthVector());
         ScreenPoint screenedHeightVector = screenConverter.realToScreen(ellipse.getHeightVector());
-        ScreenPoint widthVector = new ScreenPoint(screenedWidthVector.getX() - from.getX(), screenedWidthVector.getY() - from.getY());
-        ScreenPoint heightVector = new ScreenPoint(screenedHeightVector.getX() - from.getX(), screenedHeightVector.getY() - from.getY());
+        ScreenPoint widthVector = new ScreenPoint(
+                screenedWidthVector.getX() - from.getX(),
+                screenedWidthVector.getY() - from.getY()
+        );
+        ScreenPoint heightVector = new ScreenPoint(
+                screenedHeightVector.getX() - from.getX(),
+                screenedHeightVector.getY() - from.getY()
+        );
         List<RealPoint> pixels = new ArrayList<>();
         ellipse.setPixels(pixels);
-        int coefficientX = (int) Math.ceil(Math.abs(matrix[0][0]) + Math.abs(matrix[1][0]));
-        int coefficientY = (int) Math.ceil(Math.abs(matrix[0][1]) + Math.abs(matrix[1][1]));
-        // fixme: ъуъ, если у b и c разные знаки, то при перемещении экрана на ПКМ эллипс перемещается в 2 раза быстрее
-        // fixme: ьеь, если у b и c одинаковые знаки, то эллипс вырождается в прямую или точку
-        int x0 = (int) (from.getX() / (matrix[0][0] == 0 ? 1 : matrix[0][0]) * coefficientX - from.getY() * matrix[1][0] * coefficientY);
-        int y0 = (int) (from.getY() / (matrix[1][1] == 0 ? 1 : matrix[1][1]) * coefficientY - from.getX() * matrix[0][1] * coefficientX);
+        int coefficientX = (int) Math.ceil(Math.abs(affine.getMatrix()[0][0]) + Math.abs(affine.getMatrix()[1][0]));
+        int coefficientY = (int) Math.ceil(Math.abs(affine.getMatrix()[0][1]) + Math.abs(affine.getMatrix()[1][1]));
+        int x0 = (int) (from.getX() / (affine.getMatrix()[0][0] == 0 ? 1 : affine.getMatrix()[0][0]) * coefficientX -
+                from.getY() * affine.getMatrix()[1][0] * coefficientY);
+        int y0 = (int) (from.getY() / (affine.getMatrix()[1][1] == 0 ? 1 : affine.getMatrix()[1][1]) * coefficientY -
+                from.getX() * affine.getMatrix()[0][1] * coefficientX);
         int width = widthVector.getX() * coefficientX;
         int height = heightVector.getY() * coefficientY;
         int y = Math.abs(height);
@@ -61,7 +70,7 @@ public class EllipseDrawer {
         int x2;
         int y1;
         int y2;
-
+        double[][] matrix = affine.getMatrix();
         // горизонтально-ориентированные кривые
         while (aSquared * y > bSquared * x) {
             x1 = x + x0;

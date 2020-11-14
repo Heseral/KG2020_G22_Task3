@@ -1,6 +1,7 @@
 package figures.ellipse;
 
 import pixels.RealPoint;
+import pixels.affine.BasicAffine;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Ellipse {
     private RealPoint widthVector;
     private Color color = Color.BLACK;
     private boolean isSelected = false;
-    private final double[][] transformationMatrix = new double[][] {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    private final BasicAffine affine = new BasicAffine();
 
     public Ellipse(RealPoint from, RealPoint widthVector, RealPoint heightVector) {
         onInit(from, widthVector, heightVector);
@@ -55,10 +56,6 @@ public class Ellipse {
         this.widthVector = widthVector;
     }
 
-    public double[][] getTransformationMatrix() {
-        return transformationMatrix;
-    }
-
     public Color getColor() {
         return color;
     }
@@ -81,5 +78,9 @@ public class Ellipse {
 
     public void setPixels(List<RealPoint> pixels) {
         this.pixels = pixels;
+    }
+
+    public BasicAffine getAffine() {
+        return affine;
     }
 }

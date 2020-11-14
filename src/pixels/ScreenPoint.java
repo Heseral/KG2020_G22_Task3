@@ -26,11 +26,19 @@ public class ScreenPoint {
         this.x = x;
     }
 
+    public void setX(double x) {
+        setX((int) Math.round(x));
+    }
+
     public int getY() {
         return y;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setY(double y) {
+        setY((int) Math.round(y));
     }
 }

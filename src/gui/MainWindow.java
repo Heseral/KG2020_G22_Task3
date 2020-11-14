@@ -60,7 +60,7 @@ public class MainWindow extends JFrame {
             // todo параметры, например для a и d это ширина и высота. Но как с остальными поступать?
             for (int row = 0, i = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++, i++) {
-                    selectedEllipse.getTransformationMatrix()[row][col] = Double.parseDouble(transformationMatrix[i].getText());
+                    selectedEllipse.getAffine().getMatrix()[row][col] = Double.parseDouble(transformationMatrix[i].getText());
                 }
             }
             drawPanel.setShouldEllipseBeRecreated(true);
@@ -90,7 +90,7 @@ public class MainWindow extends JFrame {
         for (int row = 0, i = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++, i++) {
                 transformationMatrix[i].setEditable(true);
-                transformationMatrix[i].setText(String.valueOf(selectedEllipse.getTransformationMatrix()[row][col]));
+                transformationMatrix[i].setText(String.valueOf(selectedEllipse.getAffine().getMatrix()[row][col]));
             }
         }
     }
