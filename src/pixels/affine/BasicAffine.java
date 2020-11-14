@@ -5,37 +5,18 @@ import pixels.ScreenPoint;
 public class BasicAffine implements IAffine {
     private final double[][] matrix = new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-    @Override
-    public void transformWidth(ScreenPoint what, double coefficient) {
-        what.setX(what.getX() * coefficient);
-    }
-
-    @Override
-    public void transformHeight(ScreenPoint what, double coefficient) {
-        what.setY(what.getY() * coefficient);
-    }
-
-    @Override
-    public void transformHorizontalShift(ScreenPoint what, double coefficient) {
-        what.setX(what.getX() + coefficient);
-    }
-
-    @Override
-    public void transformVerticalShift(ScreenPoint what, double coefficient) {
-        what.setY(what.getY() + coefficient);
-    }
-
-    @Override
-    public void transformHorizontalSlant(ScreenPoint what, double coefficient) {
-        what.setX(what.getY() * coefficient);
-    }
-
-    @Override
-    public void transformVerticalSlant(ScreenPoint what, double coefficient) {
-        what.setY(what.getX() * coefficient);
-    }
-
     public double[][] getMatrix() {
         return matrix;
+    }
+
+    @Override
+    public ScreenPoint transform(ScreenPoint what, double[][] matrix) {
+        what.setX(what.getX() * matrix[0][0] + what.getY() * matrix[1][0] + matrix[2][0]);
+        what.setY(what.getY() * matrix[1][1] + what.getX() * matrix[0][1] + matrix[2][1]);
+        return what;
+    }
+
+    public ScreenPoint transform(ScreenPoint what) {
+        return transform(what, getMatrix());
     }
 }

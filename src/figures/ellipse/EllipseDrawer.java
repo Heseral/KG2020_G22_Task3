@@ -70,7 +70,7 @@ public class EllipseDrawer {
         int x2;
         int y1;
         int y2;
-        double[][] matrix = affine.getMatrix();
+        ScreenPoint pointToDraw;
         // горизонтально-ориентированные кривые
         while (aSquared * y > bSquared * x) {
             x1 = x + x0;
@@ -78,30 +78,26 @@ public class EllipseDrawer {
             y1 = y + y0;
             y2 = y0 - y;
 
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x1 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
-                            (y1 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x1 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
-                            (y2 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x2 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
-                            (y1 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x2 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
-                            (y2 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
-                    )
-            ));
+            pointToDraw = new ScreenPoint(x1, y1);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x1, y2);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x2, y1);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x2, y2);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
 
             if (delta >= 0) {
                 y--;
@@ -118,30 +114,26 @@ public class EllipseDrawer {
             y1 = y + y0;
             y2 = y0 - y;
 
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x1 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
-                            (y1 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x1 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
-                            (y2 * matrix[1][1] + x1 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x2 * matrix[0][0] + y1 * matrix[1][0]) / coefficientX,
-                            (y1 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
-                    )
-            ));
-            pixels.add(screenConverter.screenToReal(
-                    new ScreenPoint(
-                            (x2 * matrix[0][0] + y2 * matrix[1][0]) / coefficientX,
-                            (y2 * matrix[1][1] + x2 * matrix[0][1]) / coefficientY
-                    )
-            ));
+            pointToDraw = new ScreenPoint(x1, y1);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x1, y2);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x2, y1);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
+            pointToDraw = new ScreenPoint(x2, y2);
+            affine.transform(pointToDraw);
+            pointToDraw.setX((double) pointToDraw.getX() / coefficientX);
+            pointToDraw.setY((double) pointToDraw.getY() / coefficientY);
+            pixels.add(screenConverter.screenToReal(pointToDraw));
 
             if (delta <= 0) {
                 x++;
